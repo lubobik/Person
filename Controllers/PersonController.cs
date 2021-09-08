@@ -11,7 +11,6 @@ namespace personManagement.Controllers
     {
         private readonly AppDbContext db;
 
-
         public PersonController(AppDbContext context)
         {
             db = context;
@@ -23,8 +22,29 @@ namespace personManagement.Controllers
             return View();
         }
 
+        public IActionResult Grid()
+        {
+            return View(db.Persons.ToList());
+        }
+
+        public IActionResult SearchGrid(string search)
+        {
+            int id=0;
+            try
+            {
+                id = Int32.Parse(search);
+            }
+            catch (Exception)
+            {
+            }
+            var persons = from p in db.Persons
+                          select p;
+            persons = persons.Where(p => p.Id.Equals(id) || p.Firstname.Contains(search) || p.Lastname.Contains(search));
+            return View("Grid", persons.ToList());
+        }
+
         [HttpGet]
-        public IActionResult Index2(int Id, String Firstname, String Lastname, bool isCompany)
+        public IActionResult Filter(int Id, String Firstname, String Lastname, bool isCompany)
         {
             var persons = from p in db.Persons
                           select p;
@@ -53,13 +73,14 @@ namespace personManagement.Controllers
             var person = db.Persons.Find(id);
             if (id == 0)
             {
+                ViewData["Title"] = "Create a Person";
                 return View("CreateEdit");
             }
             if (person == null)
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "Edit a Person";
             return View("CreateEdit", person);
         }
         [HttpPost]
@@ -96,9 +117,5 @@ namespace personManagement.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Grid()
-        {
-            return View();
-        }
     }
 }

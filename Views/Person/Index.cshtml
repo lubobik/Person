@@ -1,15 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Personlist";
+    ViewData["Title"] = "Tablelist";
 }
 @model Test.Models.Person
 
-<form asp-action="Edit">
+
+<h2>@ViewData["Title"]</h2>
+<form asp-action="Edit" style="margin-bottom:20px">
     <button type="submit" class="btn btn-primary">
-        Create Person
+        Create a new Person
     </button>
 </form>
-
-<form asp-action="Index2" method="get">
+<h5>Filter</h5>
+<form asp-action="Filter" method="get">
     @Html.TextBoxFor(m => m.Id, new { placeholder = "ID" })
     @Html.TextBoxFor(m => m.Firstname, new { placeholder = "Firstname" })
     @Html.TextBoxFor(m => m.Lastname, new { placeholder = "Lastname" })

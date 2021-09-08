@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Create a Person";
+}
+@model Test.Models.Person
+
+@section scripts {
+<script>
+
+        $("#isCompany").change(function () {
+            $("#showFirstname").toggle();
+        });
+</script>
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>Create a Person</h5>
+    </div>
+
+    <form asp-action="CreateEdit" method="post">
+        <div class="card-body">
+
+                <div class="row">
+                    <div class="col">
+                        @Html.LabelFor(m => m.isCompany)
+                    </div>
+                    <div id="isCompany" class="col">
+                        @Html.CheckBoxFor(m => m.isCompany)
+                    </div>
+                </div>
+ 
+
+            <div hidden class="row">
+                <div class="col">
+                    @Html.LabelFor(m => m.Id)
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.Id, new { placeholder = "ID" })
+                </div>
+            </div>
+
+            <div id="showFirstname"class="row">
+                <div class="col">
+                    @Html.LabelFor(m => m.Firstname)
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.Firstname, new { placeholder = "Firstname" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    @Html.LabelFor(m => m.Lastname)
+                </div>
+                <div class="col">
+                    @Html.TextBoxFor(m => m.Lastname, new { placeholder = "Lastname" })
+                </div>
+            </div>
+
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-danger">Save Person</button>
+        </div>
+    </form>
+</div>

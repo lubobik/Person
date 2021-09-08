@@ -24,7 +24,7 @@ namespace personManagement.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index2(int Id, String Firstname, String Lastname, bool isCompany)
+        public IActionResult Filter(int Id, String Firstname, String Lastname, bool isCompany)
         {
             var persons = from p in db.Persons
                           select p;
@@ -53,13 +53,14 @@ namespace personManagement.Controllers
             var person = db.Persons.Find(id);
             if (id == 0)
             {
+                ViewData["Title"] = "Create a Person";
                 return View("CreateEdit");
             }
             if (person == null)
             {
                 return NotFound();
             }
-
+            ViewData["Title"] = "Edit a Person";
             return View("CreateEdit", person);
         }
         [HttpPost]

@@ -1,7 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Create a Person";
-}
-@model Test.Models.Person
+﻿@model Test.Models.Person
 
 @section scripts {
 <script>
@@ -14,7 +11,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h5>Create a Person</h5>
+        <h5>@ViewData["Title"]</h5>
     </div>
 
     <form asp-action="CreateEdit" method="post">

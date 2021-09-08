@@ -1,19 +1,42 @@
 ﻿@{
-    ViewData["Title"] = "Personlist";
+    ViewData["Title"] = "Gridlist";
 }
-@model Test.Models.Person
+@model IEnumerable<Test.Models.Person>
 @using GridMvc
 
-<h1>Grid</h1>
-<div class="row">
-    <div class="col">
 
-    </div>
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <form asp-action="Edit" style="margin-bottom:20px; float: left;">
+        <button type="submit" class="btn btn-primary">
+            Create a new Person
+        </button>
+    </form>
+
+    <form asp-action="SearchGrid" style="margin-bottom: 20px; float: right;">
+        @Html.TextBox("search")
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+        <button asp-action="Grid" class="btn btn-primary">
+            Show all
+        </button>
+    </form>
 </div>
-<form asp-action="CreateEdit">
-    <button type="submit" class="btn btn-primary">
-        +Create Person
-    </button>
-</form>
+
+
+<div>
+    @Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(m => m.Id).Titled("ID");
+    columns.Add(m => m.Firstname).Titled("Firstname");
+    columns.Add(m => m.Lastname).Titled("Name");
+    columns.Add(m => m.isCompany).Titled("Employee");
+    columns.Add().Encoded(false).Sanitized(false).RenderValueAs(m => Html.ActionLink("Edit", "Edit", new { id = m.Id }, new { @class = "btn btn-warning" }));
+    columns.Add().Encoded(false).Sanitized(false).RenderValueAs(m => Html.ActionLink("Delete", "Delete", new { id = m.Id }, new { @class = "btn btn-danger" }));
+}).WithPaging(10).Filterable(true).Sortable(true)
+</div>
 
 

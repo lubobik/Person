@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Personlist";
+    ViewData["Title"] = "Tablelist";
 }
 @model Test.Models.Person
 
@@ -10,7 +10,7 @@
         Create a new Person
     </button>
 </form>
-
+<h5>Filter</h5>
 <form asp-action="Filter" method="get">
     @Html.TextBoxFor(m => m.Id, new { placeholder = "ID" })
     @Html.TextBoxFor(m => m.Firstname, new { placeholder = "Firstname" })
